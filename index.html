@@ -21,6 +21,10 @@
     margin: 0;
     padding: 0;
   }
+  #app > header a {
+    text-decoration: none;
+    color: inherit;
+  }
   #app > header {
     text-align: center;
     position: sticky;
@@ -81,15 +85,30 @@
       transform: translateX(100%);
     }
   }
+
+  /* View display */
+  [page] {
+    display: none;
+  }
+  [page][active] {
+    display: block;
+  }
+
 </style>
 <link href="./src/components/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="./src/components/product.css"></noscript>
+<link href="./src/assets/css/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="./src/assets/css/product.css"></noscript>
 <body>
   <section id="app">
     <header>
-      <h1>Nozama shop 🛍</h1>
+      <h1><a href="/">Nozama shop 🛍</a></h1>
     </header>
     <main>
+
+      <app-home page></app-home>
+      <app-product page></app-product>
+
       <div class="skeleton">
         <div class="hero"></div>
         <div class="title"></div>
