@@ -1,5 +1,7 @@
 import { html } from "lit";
 import { Base } from '../Base';
+import {addItemToCart} from "../api/cart";
+import {getCart, setCart} from "../idbHelpers";
 
 export class AppProduct extends Base {
   constructor() {
@@ -14,7 +16,17 @@ export class AppProduct extends Base {
       loaded: { type: Boolean, state: true }
     };
   }
-
+  async addToCart() {
+    if (!navigator.onLine) {
+      const storedCart = getCart('cart');
+      storedCart.products.products.push(this.product);
+      await setCart(storedCart);
+      alert('Product added to cart');
+    } else {
+      await addItemToCart(this.product);
+      alert('Product added to cart');
+    }
+  }
   firstUpdated() {
     const img = this.querySelector('img');
     img.addEventListener('load', () => {
@@ -40,6 +52,7 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <button @click="${this.addToCart}">Add to cart</button>
         </main>
       </section>
     `;
